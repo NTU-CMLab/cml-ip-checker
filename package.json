@@ -1,0 +1,32 @@
+{
+  "name": "cml-ip-checker",
+  "version": "1.0.0",
+  "description": "Check if cmlab's server IP banned by NTU",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "cheerio": "^0.22.0",
+    "console-stamp": "^0.2.4",
+    "facebook-chat-api": "^1.2.0",
+    "iconv-lite": "^0.4.15",
+    "request": "^2.78.0",
+    "request-promise": "^4.1.1",
+    "tabletojson": "^0.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SSARCandy/cml-ip-checker.git"
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "SSARCandy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SSARCandy/cml-ip-checker/issues"
+  },
+  "homepage": "https://github.com/SSARCandy/cml-ip-checker#readme"
+}

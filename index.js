@@ -33,7 +33,7 @@ request(option)
 
         if (!banned.length) {
             console.log("All IP are fine.");
-            return;
+            process.exit(0);
         }
 
         msg.body = JSON.stringify(banned, null, '\t').replace(/[\{\},\[\]\t"]/g, '');

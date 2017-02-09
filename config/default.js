@@ -4,8 +4,5 @@ module.exports = {
         email: '',
         password: '',
         forceLogin: true
-    },
-    filter_list: [
-
-    ]
+    }
 };

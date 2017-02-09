@@ -1,11 +1,10 @@
 'use strict';
 
 // add timestamps in front of log messages
-// require('console-stamp')(console, 'yyyy/mm/dd HH:MM:ss');
+require('console-stamp')(console, 'yyyy/mm/dd HH:MM:ss');
 const config = require('./config/config');
 const IP_MAP = require('./cml_ip_map.json');
 const Promise = require('bluebird');
-// const cheerio = require('cheerio');
 const table2json = require('tabletojson');
 const request = require('request-promise');
 const iconv = require('iconv-lite');
@@ -17,10 +16,10 @@ const option = {
     uri: 'http://cert.ntu.edu.tw/Module/Index/ip.php',
     encoding: null,
     form: {
-        ip1:140,
-        ip2:112,
-        ip3:29,
-        isset:'ok'
+        ip1: 140,
+        ip2: 112,
+        ip3: 29,
+        isset: 'ok'
     }
 };
 
@@ -32,16 +31,17 @@ request(option)
         const table = table2json.convert(decoded)[1];
         const banned = checkIP(table);
 
-        if (!banned.length) return;
-        msg.body = JSON.stringify(banned, null, '\t').replace(/[\{\},\[\]\t]/g, '');
+        if (!banned.length) {
+            console.log("All IP are fine.");
+            return;
+        }
+
+        msg.body = JSON.stringify(banned, null, '\t').replace(/[\{\},\[\]\t"]/g, '');
 
         return loginFacebook(config.account);
     })
-    .then(api => {
-        api.sendMessage(msg, config.notify_channel_id, function (err) {
-            console.log(msg.body);
-        });
-    })
+    .then(api => api.sendMessage(msg, config.notify_channel_id))
+    .then(() => console.log(msg.body))
     .catch(err => console.error(err));
 
 

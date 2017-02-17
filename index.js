@@ -44,7 +44,7 @@ request(option)
             console.log('Already warned.');
             process.exit(0);
         } else {
-            fs.writeFileSync('./log.json', text);
+            fs.writeFileSync('./log.json', JSON.stringify(banned));
         }
 
         return loginFacebook(config.account);

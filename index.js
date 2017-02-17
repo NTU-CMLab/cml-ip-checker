@@ -9,7 +9,8 @@ const table2json = require('tabletojson');
 const request = require('request-promise');
 const iconv = require('iconv-lite');
 const loginFacebook = Promise.promisify(require('facebook-chat-api'));
-const fs = require('fs');
+const fs = Promise.promisifyAll(require('fs'));
+const log = require('./log.json');
 
 const option = {
     method: 'POST',
@@ -32,11 +33,19 @@ request(option)
         const banned = checkIP(table);
 
         if (!banned.length) {
-            console.log("All IP are fine.");
+            console.log("All IP are fine, flush log.");
+            fs.writeFileSync('./log.json', '[]');
             process.exit(0);
         }
 
         msg.body = JSON.stringify(banned, null, '\t').replace(/[\{\},\[\]\t"]/g, '');
+
+        if (JSON.stringify(log) == JSON.stringify(banned)) {
+            console.log('Already warned.');
+            process.exit(0);
+        } else {
+            fs.writeFileSync('./log.json', text);
+        }
 
         return loginFacebook(config.account);
     })

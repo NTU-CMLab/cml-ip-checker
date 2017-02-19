@@ -34,7 +34,7 @@ request(option)
 
         if (!banned.length) {
             console.log("All IP are fine, flush log.");
-            fs.writeFileSync('./log.json', '[]');
+            fs.writeFileSync(`${__dirname}/log.json`, '[]');
             process.exit(0);
         }
 
@@ -44,7 +44,7 @@ request(option)
             console.log('Already warned.');
             process.exit(0);
         } else {
-            fs.writeFileSync('./log.json', JSON.stringify(banned));
+            fs.writeFileSync(`${__dirname}/log.json`, JSON.stringify(banned));
         }
 
         return loginFacebook(config.account);
